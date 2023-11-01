@@ -1,0 +1,18 @@
+on:
+  workflow_call:
+    inputs:
+      repository:
+        type: string
+      ref:
+        type: string
+
+jobs:
+  buildCode:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: "${{github.event.inputs.repository}}"
+          ref: "${{github.event.inputs.ref}}"

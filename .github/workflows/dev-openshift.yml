@@ -1,18 +1,25 @@
 on:
   workflow_call:
-    inputs:
-      repository:
+    inputs:      
+      factoryRepo:
         type: string
-      ref:
+        required: true        
+      factoryBranch:
         type: string
+        required: true
+      devPipeline:
+        type: string
+        required: true
 
+concurrency: 1
 jobs:
-  buildCode:
+  buildCode:    
     runs-on: ubuntu-latest
     continue-on-error: false
-    timeout-minutes: 3
+    timeout-minutes: 3        
     steps:
-      - uses: actions/checkout@v3
-        with:
-          repository: "${{github.event.inputs.repository}}"
-          ref: "${{github.event.inputs.ref}}"
+      - name: Show sample
+        run: |-
+          echo "Factory Repo: ${{github.event.inputs.factoryRepo}}"
+          echo "Factory Branch: ${{github.event.inputs.factoryBranch}}"
+          echo "Dev Pipeline: ${{github.event.inputs.devPipeline}}"
